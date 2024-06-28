@@ -18,7 +18,12 @@ public class CrudDemoApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
-		return runner -> queryForStudents(studentDAO);
+		return runner -> queryForStudentsByLastName(studentDAO);
+	}
+
+	private void queryForStudentsByLastName(StudentDAO studentDAO) {
+		List<Student> students = studentDAO.findByLastName("Anderson");
+		students.forEach(System.out::println);
 	}
 
 	private void queryForStudents(StudentDAO studentDAO) {
@@ -48,7 +53,7 @@ public class CrudDemoApplication {
 	private void createStudent(StudentDAO studentDAO) {
 		//create the student object
 		System.out.println("Creating new student object...");
-		Student tempStudent = new Student("Paul", "Doe", "paul@example.com");
+		Student tempStudent = new Student("Jack", "Anderson", "paul@example.com");
 		//save the student object
 		System.out.println("Saving the student...");
 		studentDAO.save(tempStudent);

@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Repository
@@ -32,7 +33,13 @@ public class StudentDAOImpl implements StudentDAO{
     @Override
     public List<Student> findAll() {
         TypedQuery<Student> query = entityManager.createQuery("FROM Student", Student.class);
+        return query.getResultList();
+    }
 
+    @Override
+    public List<Student> findByLastName(String lastName) {
+        TypedQuery<Student> query = entityManager.createQuery("FROM Student WHERE lastName = :data", Student.class);
+        query.setParameter("data", lastName);
         return query.getResultList();
     }
 }
