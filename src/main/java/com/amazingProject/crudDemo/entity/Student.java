@@ -19,8 +19,8 @@ public class Student {
 
     @Column(name = "email")
     private String email;
-    //define constructors
 
+    //define constructors
     public Student() {
     }
 
@@ -30,8 +30,7 @@ public class Student {
         this.email = email;
     }
 
-    //define getters
-
+    //define getters and setters
     public int getId() {
         return id;
     }
@@ -65,7 +64,6 @@ public class Student {
     }
 
     //define toString
-
     @Override
     public String toString() {
         return "Student{" +
