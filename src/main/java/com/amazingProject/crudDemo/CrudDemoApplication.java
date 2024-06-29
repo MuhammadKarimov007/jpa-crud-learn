@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
@@ -18,7 +19,29 @@ public class CrudDemoApplication {
 
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
-		return runner -> deleteStudent(studentDAO);
+		return runner -> createMultipleStudents(studentDAO);
+	}
+
+	private void createMultipleStudents(StudentDAO studentDAO) {
+		System.out.println("Creating new 5 students...");
+		List<Student> newStudents = new ArrayList<>(List.of(
+				new Student("Shermukhammad", "Karimov", "example@gmail.com"),
+				new Student("Doniyor", "Azimboyeb", "example@gmail.com"),
+				new Student("Jamshid", "Uralov", "example@gmail.com"),
+				new Student("Shoh", "Jahonov", "example@gmail.com"),
+				new Student("Nozima", "Alisherova", "example@gmail.com")
+		));
+
+		for (Student student : newStudents) {
+			studentDAO.save(student);
+		}
+		System.out.println("All new students created successfully.");
+	}
+
+	private void deleteAllStudents(StudentDAO studentDAO) {
+		System.out.println("Deleting all students...");
+		int x = studentDAO.deleteAll();
+		System.out.println(x + " rows have been deleted.");
 	}
 
 	private void deleteStudent(StudentDAO studentDAO) {
